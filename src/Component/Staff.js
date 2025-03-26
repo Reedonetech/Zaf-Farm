@@ -1,5 +1,5 @@
 import React, { use, useState } from 'react';
-import img from '../zaf 1.png';
+import img from '../asset/zaf 1.png';
 import {ToastContainer, toast} from 'react-toastify';
 
 
