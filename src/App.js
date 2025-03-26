@@ -1,10 +1,17 @@
+import { BrowserRouter, Router, Routes } from 'react-router-dom';
 import './App.css';
-import Staff from './Zaf-Admin/Staff';
+
+import Staff from './Component/Staff';
 
 function App() {
   return (
     <div>
-      <Staff/>
+      <BrowserRouter >
+      <Routes>
+        <Router path = "/staff" element={<Staff/>}/>;
+      </Routes>
+      </BrowserRouter>
+      
     </div>
   );
 }
