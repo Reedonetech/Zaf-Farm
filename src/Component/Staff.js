@@ -1,9 +1,16 @@
-import React, { use, useState } from 'react';
+import React, {createContext, useContext, useState} from 'react';
 import img from '../asset/zaf 1.png';
 import {ToastContainer, toast} from 'react-toastify';
+import { AuthContext } from '../AuthContext/Authcontext';
+
 
 
 const Staff = () => {
+    const {url, token} = useContext(AuthContext)
+    // console.log(token);
+    console.log(url);
+    
+    
     const [loading, setLoading] = useState(false);
     const [format, setFormat] = useState({
         name: '',
@@ -26,30 +33,32 @@ const Staff = () => {
         e.preventDefault();
 
        try {
-        if(!format){
-            toast.warn('Please fill all fields')
+         if (!format.name || !format.email || !format.userType || !format.password || !format.confirmPassword) {
+            toast.warn('Please fill all fields');
             setLoading(false);
-            return null;
-            
+            return;
         }
-        if(format.password !== format.confirmPassword){
-            toast.warn('Password does not match')
+
+        if (format.password !== format.confirmPassword) {
+            toast.warn('Password does not match');
             setLoading(false);
-            return null;
+            return;
         }
-        if(format.password.length < 6){
-            toast.warn('Password must be at least 6 characters')
+
+        if (format.password.length < 6) {
+            toast.warn('Password must be at least 6 characters');
             setLoading(false);
-            console.log(format);
-            
-            return null;
+            return;
         }
+
         // const [response, setResponse] = useState({});
-        const res = await fetch('https://zaf-farm.onrender.com/admin/regsiter-worker', {
+        const res = await fetch(url, {
             method:'POST',
             headers:{
-                "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGMxZTE5NTA1YWU5MTNhNGMyNDczOSIsImVtYWlsIjoicmVlZG9uZTIwMjJAZ21haWwuY29tIiwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTc0Mjk5MjA2OSwiZXhwIjoxNzQzNTk2ODY5fQ.MQjY13MLiBoOJHUvCZbvQRMBP3crz7a306sWKbPTBIs",
-                'content-type': 'application/json'
+                "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGMxZTE5NTA1YWU5MTNhNGMyNDczOSIsImVtYWlsIjoicmVlZG9uZTIwMjJAZ21haWwuY29tIiwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTc0MzExMDkxNSwiZXhwIjoxNzQzNzE1NzE1fQ.7b766Y9lkonpixSoLScR3tIkvYEI3GIuNRC8urG__yg" ,
+                'Content-Type': 'application/json',
+
+                  
             },
             body: JSON.stringify(format)           
            
@@ -112,9 +121,9 @@ const Staff = () => {
                         <p className='text-[20px] font-bold text-white'>Confirm Password:</p>
                         <input className=' py-[2px] px-[3px] w-[30vw] border rounded outline-0 bg-white' type="password" name='confirmPassword' onChange={handleChange} placeholder='Confirm Password' />
                     </label>
-                <div className='flex gap-[20px] self-end'>
-                    <button className='border rounded px-5 py-2 cursor-pointer bg-blue-400 text-white font-medium' type='sumbit'>{loading ? 'loading....' : 'Register'}</button>
-                </div>
+                    <div className='flex gap-[20px] self-end'>
+                    <button className='border rounded px-5 py-2 cursor-pointer bg-blue-400 text-white font-medium' type='submit' disabled={loading} > {loading ? 'Loading....' : 'Register'}</button>
+                    </div>
                 </form>
             </div>
         </div>
