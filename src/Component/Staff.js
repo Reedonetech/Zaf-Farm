@@ -6,10 +6,9 @@ import { AuthContext } from '../AuthContext/Authcontext';
 
 
 const Staff = () => {
-    const {url, token} = useContext(AuthContext)
-    // console.log(token);
-    console.log(url);
-    
+    const {url} = useContext(AuthContext);
+    // console.log(url);
+    const token = localStorage.getItem('tk')
     
     const [loading, setLoading] = useState(false);
     const [format, setFormat] = useState({
@@ -52,10 +51,10 @@ const Staff = () => {
         }
 
         // const [response, setResponse] = useState({});
-        const res = await fetch(url, {
+        const res = await fetch(`${url}admin/regsiter-worker`, {
             method:'POST',
             headers:{
-                "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGMxZTE5NTA1YWU5MTNhNGMyNDczOSIsImVtYWlsIjoicmVlZG9uZTIwMjJAZ21haWwuY29tIiwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTc0MzExMDkxNSwiZXhwIjoxNzQzNzE1NzE1fQ.7b766Y9lkonpixSoLScR3tIkvYEI3GIuNRC8urG__yg" ,
+                "Authorization":`Bearer ${token} `,
                 'Content-Type': 'application/json',
 
                   
@@ -127,7 +126,6 @@ const Staff = () => {
                 </form>
             </div>
         </div>
-        
     </div>
   );
 }

@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import img1 from '../asset/zaf 1.png';
 import { ToastContainer, toast } from 'react-toastify';
+import { AuthContext } from '../AuthContext/Authcontext';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [loading, setLoading] = useState(false)
+  const {url} = useContext (AuthContext)
   const [formdata,setFormdata]=useState({
       email:'',
       password:''
      })
-     
+   const navigate = useNavigate()  
   
 const handlechange=(e)=>{
 const {name, value} = e.target
@@ -33,10 +36,12 @@ try {
     return null;
   }
 
-  const url=` https://zaf-farm.onrender.com/login-as-admin`;
+  // const url=` ${url}login-as-admin`;
+  // console.log();
+  
 
  
- const data = await fetch(url,{
+ const data = await fetch(`${url}login-as-admin`,{
   
    method:'POST',
    body:JSON.stringify(formdata ),
@@ -55,6 +60,7 @@ try {
      console.log(response);
      setLoading(false);
      toast.error(response.error)
+     navigate('/verify-otp')
      
    }
 
