@@ -75,7 +75,7 @@ try {
   return (
     <div>
       
-        <div className="flex flex-col items-center h-[100vh] p-[20px] bg-slate-600">
+        <div className="flex flex-col items-center h-[100vh] p-[20px]  bg-[#d2c5c5]">
         <div className="flex flex-col items-center justify-center gap-[20px] p-[10px]">
           <img src={img1} alt="" />
           <ToastContainer/>

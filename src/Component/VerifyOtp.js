@@ -9,7 +9,7 @@ const VerifyOtp = () => {
     const {url} = useContext(AuthContext)
     const [formatotp, setFormatOtp] = useState({
         email:'',
-        otp:''
+        otp:'',
     })
     const navigate = useNavigate()
 
@@ -42,7 +42,6 @@ const VerifyOtp = () => {
                 toast.success(`${data.message}`);
                 const token = data.token
                 localStorage.setItem('tk', token)
-                
             }else{
                 const data = await response.json()
                 setLoading(false)
@@ -57,7 +56,7 @@ const VerifyOtp = () => {
     }
   return (
     <div>
-         <div className="flex flex-col items-center h-[100vh] p-[20px] bg-slate-600">
+         <div className="flex flex-col items-center h-[100vh] p-[20px]  bg-[#d2c5c5]">
         <div className="flex flex-col items-center justify-center gap-[20px] p-[10px]">
           <img src={img1} alt="" />
           <ToastContainer/>
